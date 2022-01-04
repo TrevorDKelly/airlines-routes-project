@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-//import { routes, airlines, airports } from "./data";
 import data from "./data";
 
 const Data = ({type, data}) => {
