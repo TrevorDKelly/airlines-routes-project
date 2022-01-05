@@ -1,27 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import PageSelection from "./page_selection";
+import Row from "./row";
 
-const Row = ({ row, columns, format }) => {
-  return (
-    <tr key={row.airline + row.src + row.dest}>
-      {columns.map(({ property }) => {
-        return <td key={property}>{format(property, row[property])}</td>
-      })}
-    </tr>
-  )
-}
+const Table = ({ className, columns, rows, perPage, format }) => {
+  const [firstIndex, setFirstIndex] = useState(0)
+  const displayedRows = rows.slice(firstIndex, firstIndex + perPage);
 
-const Table = ({ className, columns, rows, format }) => {
   return (
-    <table className={className}>
-      <thead>
-        <tr>
-          {columns.map(c => <td key={c.name}>{c.name}</td>)}
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map(row => <Row row={row} columns={columns} format={format} />)}
-      </tbody>
-    </table>
+    <div>
+      <table className={className}>
+        <thead>
+          <tr>
+            {columns.map(c => <td key={c.name}>{c.name}</td>)}
+          </tr>
+        </thead>
+        <tbody>
+          {displayedRows.map(row => {
+            return <Row row={row} columns={columns} format={format}
+                    key={row.airline + row.src + row.dest} />
+          })}
+        </tbody>
+      </table>
+      <PageSelection firstIndex={firstIndex} setFirstIndex={setFirstIndex}
+                     total={rows.length} />
+    </div>
   )
 }
 
