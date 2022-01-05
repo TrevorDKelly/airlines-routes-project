@@ -1,11 +1,16 @@
 import React from "react";
 
-const Filter = ({ allAirlines }) => {
+const Filter = ({ allAirlines, selected, setAirline }) => {
+  const selectAirline = (e) => {
+    e.preventDefault();
+    setAirline(parseInt(e.target.value), 10)
+  }
+
   return (
     <div>
       Show routes on
-      <select>
-        <option value="">Show All</option>
+      <select onChange={selectAirline} value={selected}>
+        <option value="-1">Show All</option>
         {allAirlines.map(airline => {
           return (
             <option key={airline.id} value={airline.id}>

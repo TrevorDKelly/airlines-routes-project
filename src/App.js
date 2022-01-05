@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import data from "./data";
 import Table from "./components/table";
@@ -12,6 +12,11 @@ function formatValue(property, value) {
   }
 }
 
+function filterRoutes(airline) {
+  if (airline === -1) return data.routes;
+  return data.routes.filter(r => r.airline === airline)
+}
+
 const columns = [
   {name: "Airline", property: "airline"},
   {name: "Source Airport", property: "src"},
@@ -19,14 +24,18 @@ const columns = [
 ];
 
 const App = () => {
+  const [airline, setAirline] = useState(-1);
+  const routesToShow = filterRoutes(airline);
+
   return (
     <div className="app">
       <header className="header">
         <h1 className="title">Airline Routes</h1>
       </header>
-      <Filter allAirlines={data.airlines} />
+      <Filter allAirlines={data.airlines} selected={airline}
+              setAirline={setAirline} />
       <Table className="routes-table" columns={columns}
-             rows={data.routes} perPage={25} format={formatValue}/>
+             rows={routesToShow} perPage={25} format={formatValue}/>
     </div>
   )
 }
