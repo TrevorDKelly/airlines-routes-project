@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import data from "./data";
 import Table from "./components/table";
+import Filter from "./components/filter";
 
 function formatValue(property, value) {
   if (property === "airline") {
@@ -23,6 +24,7 @@ const App = () => {
       <header className="header">
         <h1 className="title">Airline Routes</h1>
       </header>
+      <Filter allAirlines={data.airlines} />
       <Table className="routes-table" columns={columns}
              rows={data.routes} perPage={25} format={formatValue}/>
     </div>
