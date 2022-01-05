@@ -1,32 +1,28 @@
 import React, { useState } from "react";
 
-const PageSelection = ({ firstIndex, setFirstIndex, total }) => {
+const PageSelection = ({ firstIndex, setFirstIndex, total, perPage }) => {
   const [nextDisabled, setNextDisabled] = useState(false);
   const [previousDisabled, setPreviousDisabled] = useState(true);
 
   function nextPage(e) {
     e.preventDefault();
     if (previousDisabled) setPreviousDisabled(false)
-    if (firstIndex > total - 51) setNextDisabled(true)
-    setFirstIndex(firstIndex + 25);
+    if (firstIndex + perPage > total - perPage - 1) setNextDisabled(true)
+    setFirstIndex(firstIndex + perPage);
   }
 
   function previousPage(e) {
     e.preventDefault();
     if (nextDisabled) setNextDisabled(false)
-    if (firstIndex == 0) setPreviousDisabled(true)
-    let newFirst = firstIndex - 25;
+    let newFirst = firstIndex - perPage;
     if (newFirst < 0) newFirst = 0;
+    if (newFirst === 0) setPreviousDisabled(true)
     setFirstIndex(newFirst);
   }
 
-  function isDisabled(state) {
-    return state ? "disabled" : "";
-  }
-
   const firstShown = firstIndex + 1;
-  const lastShown = firstShown + 24
-  if (lastShown > total) lastShown = total
+  let lastShown = firstShown + perPage - 1;
+  if (lastShown > total) lastShown = total;
 
   return (
     <div className="pagination">

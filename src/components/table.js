@@ -22,7 +22,7 @@ const Table = ({ className, columns, rows, perPage, format }) => {
         </tbody>
       </table>
       <PageSelection firstIndex={firstIndex} setFirstIndex={setFirstIndex}
-                     total={rows.length} />
+                     total={rows.length} perPage={perPage}/>
     </div>
   )
 }
