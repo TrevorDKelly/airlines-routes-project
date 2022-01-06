@@ -1,20 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Select from "./select";
 
 const Filter = ({
   allAirlines, selectedAirline, setAirline, allAirports,
   selectedAirport, setAirport, setFirstIndex
 }) => {
+  const [disableShowAll, setDisableShowAll] = useState(true);
+
   const selectAirline = (e) => {
     e.preventDefault();
     setAirline(parseInt(e.target.value), 10);
+    setDisableShowAll(false);
     setFirstIndex(0);
   }
 
   const selectAirport = (e) => {
     e.preventDefault();
     setAirport(e.target.value);
+    setDisableShowAll(false);
     setFirstIndex(0);
+  }
+
+  const showAll = (e) => {
+    e.preventDefault();
+    setAirport("");
+    setAirline(-1);
+    setDisableShowAll(true);
   }
 
   return (
@@ -27,6 +38,7 @@ const Filter = ({
       <Select options={allAirports} valueKey="code" titleKey="name"
               allTitle="All Airports" value={selectedAirport}
               onSelect={selectAirport} />
+      <button onClick={showAll} disabled={disableShowAll}>Show All Routes</button>
     </div>
   );
 }
