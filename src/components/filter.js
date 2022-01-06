@@ -3,7 +3,7 @@ import Select from "./select";
 
 const Filter = ({
   allAirlines, selectedAirline, setAirline, allAirports,
-  selectedAirport, setAirport, setFirstIndex
+  selectedAirport, setAirport, matchingRoutes, setFirstIndex
 }) => {
   const [disableShowAll, setDisableShowAll] = useState(true);
 
@@ -33,11 +33,11 @@ const Filter = ({
       Show routes on
       <Select options={allAirlines} valueKey="id" titleKey="name"
               allTitle="All Airlines" value={selectedAirline}
-              onSelect={selectAirline} />
+              onSelect={selectAirline} matchingRoutes={matchingRoutes} />
       flying in or out of
       <Select options={allAirports} valueKey="code" titleKey="name"
               allTitle="All Airports" value={selectedAirport}
-              onSelect={selectAirport} />
+              onSelect={selectAirport} matchingRoutes={matchingRoutes} />
       <button onClick={showAll} disabled={disableShowAll}>Show All Routes</button>
     </div>
   );

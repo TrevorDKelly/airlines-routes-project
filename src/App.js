@@ -31,9 +31,9 @@ const App = () => {
         <h1 className="title">Airline Routes</h1>
       </header>
       <Filter allAirlines={data.airlines} selectedAirline={airline}
-              allAirports={data.airports} selectedAirport={airport}
-              setAirline={setAirline} setAirport={setAirport}
-              setFirstIndex={setFirstIndex} />
+              setAirline={setAirline} allAirports={data.airports}
+              selectedAirport={airport} setAirport={setAirport}
+              matchingRoutes={routesToShow} setFirstIndex={setFirstIndex} />
       <Table className="routes-table" rows={routesToShow} perPage={25}
              format={formatValue} firstIndex={firstIndex}
              setFirstIndex={setFirstIndex} />
