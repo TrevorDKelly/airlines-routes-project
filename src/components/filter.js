@@ -1,10 +1,19 @@
 import React from "react";
 import Select from "./select";
 
-const Filter = ({ allAirlines, selected, setAirline, setFirstIndex }) => {
+const Filter = ({
+  allAirlines, selectedAirline, setAirline, allAirports,
+  selectedAirport, setAirport, setFirstIndex
+}) => {
   const selectAirline = (e) => {
     e.preventDefault();
     setAirline(parseInt(e.target.value), 10);
+    setFirstIndex(0);
+  }
+
+  const selectAirport = (e) => {
+    e.preventDefault();
+    setAirport(e.target.value);
     setFirstIndex(0);
   }
 
@@ -12,8 +21,12 @@ const Filter = ({ allAirlines, selected, setAirline, setFirstIndex }) => {
     <div>
       Show routes on
       <Select options={allAirlines} valueKey="id" titleKey="name"
-              allTitle="All Airlines" value={selected} onSelect={selectAirline}
-      />
+              allTitle="All Airlines" value={selectedAirline}
+              onSelect={selectAirline} />
+      flying in or out of
+      <Select options={allAirports} valueKey="code" titleKey="name"
+              allTitle="All Airports" value={selectedAirport}
+              onSelect={selectAirport} />
     </div>
   );
 }

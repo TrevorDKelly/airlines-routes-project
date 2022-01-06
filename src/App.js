@@ -12,23 +12,28 @@ function formatValue(property, value) {
   }
 }
 
-function filterRoutes(airline) {
-  if (airline === -1) return data.routes;
-  return data.routes.filter(r => r.airline === airline)
+function filterRoutes(airline, airport) {
+  return data.routes.filter( r => {
+    return (airline === -1 || r.airline === airline)
+           && (airport === "" || r.src === airport || r.dest === airport)
+  })
 }
 
 const App = () => {
   const [firstIndex, setFirstIndex] = useState(0)
   const [airline, setAirline] = useState(-1);
-  const routesToShow = filterRoutes(airline);
+  const [airport, setAirport] = useState("");
+  const routesToShow = filterRoutes(airline, airport);
 
   return (
     <div className="app">
       <header className="header">
         <h1 className="title">Airline Routes</h1>
       </header>
-      <Filter allAirlines={data.airlines} selected={airline}
-              setAirline={setAirline} setFirstIndex={setFirstIndex} />
+      <Filter allAirlines={data.airlines} selectedAirline={airline}
+              allAirports={data.airports} selectedAirport={airport}
+              setAirline={setAirline} setAirport={setAirport}
+              setFirstIndex={setFirstIndex} />
       <Table className="routes-table" rows={routesToShow} perPage={25}
              format={formatValue} firstIndex={firstIndex}
              setFirstIndex={setFirstIndex} />
