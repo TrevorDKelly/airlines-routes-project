@@ -1,4 +1,5 @@
 import React from "react";
+import Select from "./select";
 
 const Filter = ({ allAirlines, selected, setAirline, setFirstIndex }) => {
   const selectAirline = (e) => {
@@ -10,16 +11,9 @@ const Filter = ({ allAirlines, selected, setAirline, setFirstIndex }) => {
   return (
     <div>
       Show routes on
-      <select onChange={selectAirline} value={selected}>
-        <option value="-1">Show All</option>
-        {allAirlines.map(airline => {
-          return (
-            <option key={airline.id} value={airline.id}>
-              {airline.name}
-            </option>
-          );
-        })}
-      </select>
+      <Select options={allAirlines} valueKey="id" titleKey="name"
+              allTitle="All Airlines" value={selected} onSelect={selectAirline}
+      />
     </div>
   );
 }
