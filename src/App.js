@@ -17,13 +17,8 @@ function filterRoutes(airline) {
   return data.routes.filter(r => r.airline === airline)
 }
 
-const columns = [
-  {name: "Airline", property: "airline"},
-  {name: "Source Airport", property: "src"},
-  {name: "Destination Airport", property: "dest"},
-];
-
 const App = () => {
+  const [firstIndex, setFirstIndex] = useState(0)
   const [airline, setAirline] = useState(-1);
   const routesToShow = filterRoutes(airline);
 
@@ -33,9 +28,10 @@ const App = () => {
         <h1 className="title">Airline Routes</h1>
       </header>
       <Filter allAirlines={data.airlines} selected={airline}
-              setAirline={setAirline} />
-      <Table className="routes-table" columns={columns}
-             rows={routesToShow} perPage={25} format={formatValue}/>
+              setAirline={setAirline} setFirstIndex={setFirstIndex} />
+      <Table className="routes-table" rows={routesToShow} perPage={25}
+             format={formatValue} firstIndex={firstIndex}
+             setFirstIndex={setFirstIndex} />
     </div>
   )
 }

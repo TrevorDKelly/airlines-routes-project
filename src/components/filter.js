@@ -1,9 +1,10 @@
 import React from "react";
 
-const Filter = ({ allAirlines, selected, setAirline }) => {
+const Filter = ({ allAirlines, selected, setAirline, setFirstIndex }) => {
   const selectAirline = (e) => {
     e.preventDefault();
-    setAirline(parseInt(e.target.value), 10)
+    setAirline(parseInt(e.target.value), 10);
+    setFirstIndex(0);
   }
 
   return (

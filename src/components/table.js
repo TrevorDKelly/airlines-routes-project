@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import PageSelection from "./page_selection";
 import Row from "./row";
 
-const Table = ({ className, columns, rows, perPage, format }) => {
-  const [firstIndex, setFirstIndex] = useState(0)
+const columns = [
+  {name: "Airline", property: "airline"},
+  {name: "Source Airport", property: "src"},
+  {name: "Destination Airport", property: "dest"},
+];
+
+const Table = ({ className, rows, perPage, format, firstIndex, setFirstIndex }) => {
   const displayedRows = rows.slice(firstIndex, firstIndex + perPage);
 
   return (
